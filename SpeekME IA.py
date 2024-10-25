@@ -12,7 +12,7 @@ import pyttsx3
 
 
 # Sua chave da API Generative AI do Google
-google_api_key = 'AIzaSyBa2nysC8S8Xi8ldicfLx0zpKZ_3wZLeBM'
+google_api_key = 'CHAVES AQUI MEU NOBRE'
 # Configura a API Generative AI com sua chave
 genai.configure(api_key=google_api_key)
 
