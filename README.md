@@ -31,9 +31,9 @@ O SpeekME IA oferece as seguintes funcionalidades:
    - O SpeekME IA tenta reconhecer a fala do usuário e gera uma resposta.
 
 ## Vozes Disponíveis
-0: Microsoft Maria Desktop - Portuguese(Brazil)
-1: Microsoft Zira Desktop - English (United States)
-2: Microsoft David Desktop - English (United States)
+  - Microsoft Maria Desktop - Portuguese(Brazil)
+  - Microsoft Zira Desktop - English (United States)
+  - Microsoft David Desktop - English (United States)
 
 3. **Síntese de voz:**
    - O SpeekME IA utiliza a biblioteca `pyttsx3` para sintetizar a resposta gerada.
