@@ -6,23 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COSMO - Bot de fala</title>
     <link rel="stylesheet" href="/static/styles.css">
-    <link rel="icon" href="/static/favicon.png">
+    <link rel="icon" href="/static/icon2.png">
 </head>
 
 <body>
     <div class="container">
-        <h1>COSMO - Bot de fala</h1>
+        <div class="logo_cosmo"><img src="/static/logo.png" alt="logo"></div>
+        <h1>COSMO - BOT DE FALA</h1>
         <button id="botao-falar">Falar</button>
-        <p id="texto-reconhecido">Texto reconhecido: </p>
-        <p id="resposta-bot">Resposta do bot: </p>
-        <img id="imagem-pulsante" src="/static/pulse.gif" alt="Imagem Pulsante" style="display: none;">
+        <button id="botao-historico">Histórico</button>
+
+        <!-- Popup e overlay para exibir histórico -->
+        <div id="popup-overlay"></div>
+        <div id="popup-historico">
+            <p id="texto-reconhecido-popup">Texto reconhecido: </p>
+            <p id="resposta-bot-popup">Resposta do bot: </p>
+            <button id="fechar-popup">Fechar</button>
+        </div>
+
+        <img id="imagem-pulsante" src="/static/pulse.gif" alt="Imagem Pulsante">
     </div>
 
     <script>
+
         const botaoFalar = document.getElementById('botao-falar');
-        const textoReconhecido = document.getElementById('texto-reconhecido');
-        const respostaBot = document.getElementById('resposta-bot');
+        const botaoHistorico = document.getElementById('botao-historico');
+        const popupHistorico = document.getElementById('popup-historico');
+        const popupOverlay = document.getElementById('popup-overlay');
+        const fecharPopup = document.getElementById('fechar-popup');
+        const textoReconhecido = document.getElementById('texto-reconhecido-popup');
+        const respostaBot = document.getElementById('resposta-bot-popup');
         const imagemPulsante = document.getElementById('imagem-pulsante');
+
 
         let synth = window.speechSynthesis;
         let utterance;
@@ -36,18 +51,16 @@
             }
             utterance = new SpeechSynthesisUtterance(texto);
             utterance.lang = 'pt-BR';
+            utterance.pitch = 1; // ajuste de tom (1 é o padrão, pode ser mais baixo ou mais alto)
+            utterance.rate = 1; // ajuste de velocidade (1 é o padrão, pode ser mais lento ou mais rápido)
             synth.speak(utterance);
 
-            // Mostra e ativa a imagem pulsante ao começar a falar
-            if (imagemPulsante) { // Verifica se a imagem existe antes de modificar seu estilo
-                imagemPulsante.style.display = "block";
-            }
+            // Inicia a animação de pulsar
+            imagemPulsante.classList.add("pulsando");
 
+            // Remove a animação ao terminar de falar
             utterance.onend = () => {
-                // Esconde a imagem pulsante quando termina de falar
-                if (imagemPulsante) {
-                    imagemPulsante.style.display = "none";
-                }
+                imagemPulsante.classList.remove("pulsando");
             };
         }
 
@@ -103,6 +116,19 @@
                 iniciarReconhecimento();
             }
         });
+
+        // Exibir popup ao clicar em "Histórico"
+        botaoHistorico.addEventListener('click', () => {
+            popupHistorico.style.display = 'block';
+            popupOverlay.style.display = 'block';
+        });
+
+        // Fechar popup ao clicar em "Fechar"
+        fecharPopup.addEventListener('click', () => {
+            popupHistorico.style.display = 'none';
+            popupOverlay.style.display = 'none';
+        });
+
     </script>
 </body>
 
